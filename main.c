@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/mman.h> //for mmap
@@ -9,18 +8,17 @@
 #include "bubblesort.h"
 #include "comparer.h"
 #include "printstrings.h"
-
+#include "mergesort.h"
+#include "setstrings.h"
 int main(int argc, char **argv)
 {
-  int filedescriptor;
-  struct stat st;
+  int filedescriptor; 
   int quantitystrings;
   long int filesize;
   unsigned char *mmapfile;
-  int carrigereturn;
-  int symbol;
   long int quantitysymbols;
   char **strings;
+  struct stat st;
   if (argc != 3) 
   {
     printf("Wrong input");
@@ -37,30 +35,24 @@ int main(int argc, char **argv)
     printf("Bad Descriptor of file");    
     exit(1);
   }
-  filesize = st.st_size;
-  mmapfile = (unsigned char*)mmap(0, filesize+1, PROT_READ | PROT_WRITE, MAP_PRIVATE, filedescriptor, 0);
+  if ( (filesize = st.st_size) ==0) 
+  {
+    printf ("Nothing in file");
+    exit(1);
+  };
+  mmapfile = (unsigned char*)mmap(0, filesize+1, PROT_READ | PROT_WRITE,
+                                         MAP_PRIVATE, filedescriptor, 0);
   if( mmapfile == MAP_FAILED )
   {
     printf("System error. Can't mmap");
     exit(1);
   }
   mmapfile[filesize-1] = '\n'; //okk
-  carrigereturn = 1;
-  symbol = 0;
   quantitysymbols = filesize;
-  strings = (char**)malloc( sizeof(char*)* (quantitystrings+1)); //if no plus one will be erorrs
-  strings[0] = &(mmapfile[0]);
-  long int i = 0;
-  for (i ; i < filesize &&
-                         carrigereturn < quantitystrings; i++ )
-  {
-    if ( mmapfile[i] == '\n') 
-    {   
-      carrigereturn++;
-      strings[carrigereturn-1] = &(mmapfile[i+1]);  
-    }
-  }
-  mergesort( strings, quantitystrings);
+  strings = (char**)malloc( sizeof(char*)* (quantitystrings+1)); 
+  //if no plus one will be erorrs
+  setstrings(mmapfile,strings,filesize,quantitystrings);
+  mergesort(strings, quantitystrings);
   printstrings (strings,quantitystrings);
   free(strings);
   if (close(filedescriptor) == -1 )
