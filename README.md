@@ -86,13 +86,12 @@ granularity: each sample hit covers 2 byte(s) for 0.02% of 43.47 seconds
    
    title| time
   -----  |-----
-   real	10m17.456s
-user	1m31.920s
-sys	0m27.400sIndex by function name
+   real	|10m17.456s
+user	|1m31.920s
+sys	|0m27.400s
+Index by function name
 
-   [5] bubblesort              [3] printstrings            [4] setstrings
-   [2] comparer        time | cumulative seconds | self seconds | calls | self ns/call | total ns/call | name 
-         [1] quicksort               [6] swap
+ %  time | cumulative seconds | self seconds | calls | self ns/call | total ns/call | name 
 ------ | ------ | ------ | ------ | ------ | ------ | ------ 
  47.97 |  11.47 |  11.47 |  163134654 |  70.30 |  70.30 |  comparer 
  27.09 |  17.95 |  6.48 |  |  |  |  printstrings 
@@ -101,28 +100,30 @@ sys	0m27.400sIndex by function name
  0.13 |  23.97 |  0.03 |  |  |  |  bubblesort 
  0.08 |  23.99 |  0.02 |  26101832 |  0.77 |  0.77 |  swap 
 
-
+   [5] bubblesort              [3] printstrings            [4] setstrings
+   [2] comparer       
+         [1] quicksort               [6] swap
 Call graph
 
 
 granularity: each sample hit covers 2 byte(s) for 0.04% of 23.99 seconds
 
 
- index | % time | self | children | called | name 1767794 
+ index | % time | self | children | called | name 
 ------ | ------ | ------ | ------ | ------ | ------ 
- |  |  |  |  |  quicksort  [1]
+ |  |  |  |1767794   |  quicksort  [1]
  [1] |  50.8 |  0.70 |  11.49 |  0+1767794 |  quicksort  [1]
  |  |  11.47 |  0.00 |  163134654/163134654 |  comparer  [2]
  |  |  0.02 |  0.00 |  26101832/26101832 |  swap  [6]
  |  |  |  |  1767794 |  quicksort  [1]
  |  |  11.47 |  0.00 |  163134654/163134654 |  quicksort  [1]
  [2] |  47.8 |  11.47 |  0.00 |  163134654 |  comparer  [2]
- [2] |  |  |  |  |  |  <spontaneous>  [3]
- |  |  27.0 |  6.48 |  0.00 |  printstrings  [3]
- |  |  |  |  |  <spontaneous>  [4]
- |  |  22.0 |  5.29 |  0.00 |  setstrings  [4]
- |  |  |  |  |  <spontaneous>  [5]
- |  |  0.1 |  0.03 |  0.00 |  bubblesort  [5]
+  |  |  |  |  |  |  <spontaneous>  
+[3] |  27.0 |  6.48 |  0.00 | | printstrings  [3]
+ |  |  |  |  |  <spontaneous>  
+[4] |  22.0 |  5.29 |  0.00 ||  setstrings  [4]
+ |  |  |  |  |  <spontaneous>  
+ [5]  |  0.1 |  0.03 |  0.00 |  bubblesort  [5]
  |  |  0.02 |  0.00 |  26101832/26101832 |  quicksort  [1]
  [6] |  0.1 |  0.02 |  0.00 |  26101832 |  swap  [6]
 
