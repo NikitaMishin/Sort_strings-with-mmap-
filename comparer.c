@@ -3,7 +3,7 @@
 /*
  comparator for English letters
 */
- int comparer (char* mas1, char* mas2)  //return 1 when mas1>mas2
+  int comparer (char* mas1, char* mas2)  //return 1 when mas1>mas2
 {	
   int i = 0;
   int f = 0;

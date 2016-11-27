@@ -6,10 +6,11 @@
 #include <sys/types.h>
 #include <fcntl.h>	 //for open()
 #include "bubblesort.h"
-#include "comparer.h"
 #include "printstrings.h"
 #include "mergesort.h"
 #include "setstrings.h"
+#include "quicksort.h"
+#include "bubblesort.h"
 int main(int argc, char **argv)
 {
   int filedescriptor; 
@@ -52,7 +53,8 @@ int main(int argc, char **argv)
   strings = (char**)malloc( sizeof(char*)* (quantitystrings+1)); 
   //if no plus one will be erorrs
   setstrings(mmapfile,strings,filesize,quantitystrings);
-  mergesort(strings, quantitystrings);
+  //quicksort(strings, quantitystrings-1);
+  mergesort(strings,quantitystrings);
   printstrings (strings,quantitystrings);
   free(strings);
   if (close(filedescriptor) == -1 )
